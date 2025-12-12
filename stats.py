@@ -1,17 +1,26 @@
-def get_num_words(filepath):
-    with open(filepath) as f:
-        file_contents = f.read()
-        num_words = len(file_contents.split())
-        return f"Found {num_words} total words"
+def get_num_words(text):
+    words = text.split()
+    return len(words)
 
 
-def num_of_char(filepath):
-    char_count = {}
-    with open(filepath) as f:
-        file_contents = f.read().lower()
-    for char in file_contents:
-        if char in char_count:
-            char_count[char] += 1
+def get_chars_dict(text):
+    chars = {}
+    for c in text:
+        lowered = c.lower()
+        if lowered in chars:
+            chars[lowered] += 1
         else:
-            char_count[char] = 1
-    return char_count
+            chars[lowered] = 1
+    return chars
+
+
+def sort_on(d):
+    return d["num"]
+
+
+def chars_dict_to_sorted_list(num_chars_dict):
+    sorted_list = []
+    for ch in num_chars_dict:
+        sorted_list.append({"char": ch, "num": num_chars_dict[ch]})
+    sorted_list.sort(reverse=True, key=sort_on)
+    return sorted_list
